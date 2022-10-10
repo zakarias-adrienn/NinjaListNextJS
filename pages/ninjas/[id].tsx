@@ -1,4 +1,7 @@
-export const getStaticPaths = async () => {
+import { GetStaticProps, GetStaticPaths } from "next";
+import { Ninja } from ".";
+
+export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
 
@@ -13,7 +16,7 @@ export const getStaticPaths = async () => {
   };
 };
 
-export const getStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   const id = context.params.id;
   const response = await fetch(
     "https://jsonplaceholder.typicode.com/users/" + id
@@ -24,7 +27,7 @@ export const getStaticProps = async (context) => {
   };
 };
 
-const Details = ({ ninja }) => {
+const Details = ({ ninja }: { ninja: Ninja }) => {
   return (
     <div>
       <h1>{ninja.name}</h1>

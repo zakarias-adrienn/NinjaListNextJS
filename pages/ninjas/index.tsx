@@ -1,8 +1,9 @@
 import Link from "next/link";
 import styles from "../../styles/Ninjas.module.css";
+import { GetStaticProps } from "next";
 
 // lefut mielőtt a component renderelve lenne
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
   const data = await res.json();
   return {
@@ -10,7 +11,19 @@ export const getStaticProps = async () => {
   };
 };
 
-const Ninjas = ({ ninjas }) => {
+interface Address {
+  city: string;
+}
+
+export interface Ninja {
+  id: number;
+  name: string;
+  email: string;
+  website: string;
+  address: Address;
+}
+
+const Ninjas = ({ ninjas }: { ninjas: Ninja[] }) => {
   return (
     <div>
       <h1>All ninjas</h1>
